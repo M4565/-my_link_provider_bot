@@ -38,3 +38,11 @@ async def handler(event):
 
 # 🔁 Keep the bot running
 client.run_until_disconnected()
+
+@client.on(events.NewMessage(incoming=True))
+async def handler(event):
+    await event.reply(f"🧾 Your Telegram ID: `{event.sender_id}`")
+
+    if event.sender_id not in ALLOWED_USERS:
+        await event.reply("🚫 You are not authorized to use this bot.")
+        return
